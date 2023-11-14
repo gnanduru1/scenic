@@ -77,6 +77,12 @@ class Dataset:
   valid_ds: Union[tf.data.Dataset, Dict[str, tf.data.Dataset]] | None = None
   test_ds: Union[tf.data.Dataset, Dict[str, tf.data.Dataset]] | None = None
 
+  def _replace(self, **kwargs):
+    """Return a new Dataset object with updated attributes."""
+    updated = self.__dict__.copy()
+    updated.update(kwargs)
+    return type(self)(**updated)
+
 
 def maybe_pad_batch(batch: Dict[str, PyTree],
                     train: bool,
